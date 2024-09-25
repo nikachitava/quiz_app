@@ -4,4 +4,6 @@ export interface IQuestion {
     answer_2: string;
     answer_3: string;
     answer_4: string;
+    handleAnswer: (option: string) => void;
+    selectedOption: string | null;
 }
