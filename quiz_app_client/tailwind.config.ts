@@ -11,19 +11,10 @@ const config: Config = {
   	extend: {
 		container: {
 			center: true,
-			padding: {
-				DEFAULT: "1rem",
-				sm: "2rem",
-				lg: "4rem",
-				xl: "5rem",
-				"2xl": "10.125rem",
-			},
+			
 			
 		},
 		
-		screens: {
-			"2xl": "1920px",
-		},
   		colors: {
 			background: '#121212',
 			primary: '#1E88E5',
