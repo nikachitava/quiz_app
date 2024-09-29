@@ -1,11 +1,25 @@
 import express from 'express'
 import mongoose from 'mongoose';
+import cors from 'cors'
+
 
 import userRoutes from './routes/user.js'
 import leaderBoardRoutes from './routes/leaderboard.js'
 
 const app = express();
 
+
+app.use((req, res, next) => {
+    res.header("Access-Control-Allow-Credentials", true);
+    next();
+});
+app.use(
+    cors({
+        origin: "http://localhost:3002",
+        credentials: true,
+        
+    })
+);
 app.use(express.json())
 
 app.use("/user", userRoutes);
