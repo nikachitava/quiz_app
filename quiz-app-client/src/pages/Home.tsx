@@ -1,17 +1,16 @@
 import { useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { Navigate } from "react-router-dom";
-import { Button } from "@/components/ui/button";
+import NavBar from "@/components/custom/NavBar";
 
 const Home = () => {
-	const { currentUser, logout } = useContext(AuthContext);
+	const { currentUser } = useContext(AuthContext);
 
 	if (!currentUser) return <Navigate to="/auth" />;
 
 	return (
 		<div>
-			{currentUser.email}
-			<Button onClick={logout}>Log out</Button>
+			<NavBar />
 		</div>
 	);
 };

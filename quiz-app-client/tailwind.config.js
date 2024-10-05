@@ -1,6 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 export default {
-    darkMode: ["class"],
+	darkMode: 'selector',
     content: [
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
@@ -19,6 +19,7 @@ export default {
 			
 		},
 		
+		
 		screens: {
 			"2xl": "1920px",
 		},
@@ -28,6 +29,14 @@ export default {
   			sm: 'calc(var(--radius) - 4px)'
   		},
   		colors: {
+			darktext: "#021526",
+			lighttext: "#2D3648",
+			greytext: "#021526B2",
+			orange: "#F93B1D",
+			colorerror: "#F93B1D",
+			colorsuccess: "#45A849",
+			secondarygrey: "#808A93",
+			
   			background: 'hsl(var(--background))',
   			foreground: 'hsl(var(--foreground))',
   			card: {
