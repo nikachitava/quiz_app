@@ -2,9 +2,9 @@ import { Outlet } from "react-router-dom";
 
 const DefaultLayout = () => {
 	return (
-		<div>
+		<section>
 			<Outlet />
-		</div>
+		</section>
 	);
 };
 

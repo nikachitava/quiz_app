@@ -2,9 +2,13 @@ import { Outlet } from "react-router-dom";
 
 const AuthLayout = () => {
 	return (
-		<div>
+		<section className="min-h-screen flex justify-between items-center">
 			<Outlet />
-		</div>
+			<img
+				src="assets/images/wallpaper.jpg"
+				className="hidden lg:block h-screen"
+			/>
+		</section>
 	);
 };
 
