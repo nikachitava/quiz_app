@@ -5,23 +5,42 @@ import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
 import { CustomInput } from "@/components/custom/CustomInput";
 import { registerFormSchema } from "@/schemas/AuthSchemas";
+import { makeRequest } from "@/lib/axios";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 interface IRegisterFormProps {
 	hadleLoginPage: () => void;
 }
 
 const RegisterForm: React.FC<IRegisterFormProps> = ({ hadleLoginPage }) => {
+	const [errors, setErrors] = useState("");
 	const form = useForm<z.infer<typeof registerFormSchema>>({
 		resolver: zodResolver(registerFormSchema),
 		defaultValues: {
+			name: "",
+			surname: "",
 			email: "",
 			password: "",
 		},
 	});
+	const navigate = useNavigate();
 
-	function onSubmit(values: z.infer<typeof registerFormSchema>) {
-		console.log(values);
-	}
+	const onSubmit = async (values: z.infer<typeof registerFormSchema>) => {
+		try {
+			await makeRequest.post("user/register", values, {
+				withCredentials: true,
+			});
+
+			navigate("/");
+		} catch (error: any) {
+			if (error.response && error.response.status === 400) {
+				setErrors(error.response.data.message);
+			} else {
+				setErrors("Something went wrong. Please try again.");
+			}
+		}
+	};
 
 	return (
 		<Form {...form}>
@@ -68,6 +87,7 @@ const RegisterForm: React.FC<IRegisterFormProps> = ({ hadleLoginPage }) => {
 				>
 					I already have an account
 				</p>
+				{errors && <p className="text-red-600">{errors}</p>}
 				<Button type="submit" className="w-full">
 					Submit
 				</Button>

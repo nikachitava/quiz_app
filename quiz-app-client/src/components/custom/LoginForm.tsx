@@ -5,12 +5,20 @@ import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
 import { CustomInput } from "@/components/custom/CustomInput";
 import { loginFormSchema } from "@/schemas/AuthSchemas";
+import { makeRequest } from "@/lib/axios";
+import { useContext, useState } from "react";
+import { AuthContext } from "@/context/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 interface ILoginFormProps {
 	hadleLoginPage: () => void;
 }
 
 const LoginForm: React.FC<ILoginFormProps> = ({ hadleLoginPage }) => {
+	const [errors, setErrors] = useState("");
+	const { setCurrentUser } = useContext(AuthContext);
+	const navigate = useNavigate();
+
 	const form = useForm<z.infer<typeof loginFormSchema>>({
 		resolver: zodResolver(loginFormSchema),
 		defaultValues: {
@@ -19,9 +27,22 @@ const LoginForm: React.FC<ILoginFormProps> = ({ hadleLoginPage }) => {
 		},
 	});
 
-	function onSubmit(values: z.infer<typeof loginFormSchema>) {
-		console.log(values);
-	}
+	const onSubmit = async (values: z.infer<typeof loginFormSchema>) => {
+		try {
+			const response = await makeRequest.post("user/auth", values, {
+				withCredentials: true,
+			});
+			localStorage.setItem("user", JSON.stringify(response.data));
+			setCurrentUser(response.data);
+			navigate("/");
+		} catch (error: any) {
+			if (error.response && error.response.status === 400) {
+				setErrors(error.response.data.message);
+			} else {
+				setErrors("Something went wrong. Please try again.");
+			}
+		}
+	};
 
 	return (
 		<Form {...form}>
@@ -51,6 +72,7 @@ const LoginForm: React.FC<ILoginFormProps> = ({ hadleLoginPage }) => {
 				>
 					I don't have an account
 				</p>
+				{errors && <p className="text-red-600">{errors}</p>}
 				<Button type="submit" className="w-full">
 					Submit
 				</Button>

@@ -1,13 +1,19 @@
 import { useContext } from "react";
-import { authContext } from "../context/AuthContext";
+import { AuthContext } from "../context/AuthContext";
 import { Navigate } from "react-router-dom";
+import { Button } from "@/components/ui/button";
 
 const Home = () => {
-	const { currentUser } = useContext(authContext);
+	const { currentUser, logout } = useContext(AuthContext);
 
 	if (!currentUser) return <Navigate to="/auth" />;
 
-	return <div>{currentUser.email}</div>;
+	return (
+		<div>
+			{currentUser.email}
+			<Button onClick={logout}>Log out</Button>
+		</div>
+	);
 };
 
 export default Home;
