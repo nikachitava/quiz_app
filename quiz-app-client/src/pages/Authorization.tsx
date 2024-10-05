@@ -5,14 +5,14 @@ import { useState } from "react";
 const Authorization = () => {
 	const [isLoginPage, setIsLoginPage] = useState(true);
 
-	const handleLoginPage = () => {
+	const toggleLoginPage = () => {
 		setIsLoginPage((isLoginPage) => !isLoginPage);
 	};
 
 	return isLoginPage ? (
-		<LoginForm hadleLoginPage={handleLoginPage} />
+		<LoginForm toggleLoginPage={toggleLoginPage} />
 	) : (
-		<RegisterForm hadleLoginPage={handleLoginPage} />
+		<RegisterForm toggleLoginPage={toggleLoginPage} />
 	);
 };
 

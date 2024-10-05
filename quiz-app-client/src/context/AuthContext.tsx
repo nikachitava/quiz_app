@@ -25,7 +25,9 @@ export const AuthContext = createContext<AuthContextTypes>(
 export const AuthContextProvider: React.FC<AuthContextProviderProps> = ({
 	children,
 }) => {
-	const [currentUser, setCurrentUser] = useState<IUser | null>(null);
+	const [currentUser, setCurrentUser] = useState<IUser | null>(
+		JSON.parse(localStorage.getItem("user") || "null")
+	);
 
 	const logout = async () => {
 		try {

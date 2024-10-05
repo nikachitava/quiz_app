@@ -10,10 +10,10 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 interface IRegisterFormProps {
-	hadleLoginPage: () => void;
+	toggleLoginPage: () => void;
 }
 
-const RegisterForm: React.FC<IRegisterFormProps> = ({ hadleLoginPage }) => {
+const RegisterForm: React.FC<IRegisterFormProps> = ({ toggleLoginPage }) => {
 	const [errors, setErrors] = useState("");
 	const form = useForm<z.infer<typeof registerFormSchema>>({
 		resolver: zodResolver(registerFormSchema),
@@ -83,7 +83,7 @@ const RegisterForm: React.FC<IRegisterFormProps> = ({ hadleLoginPage }) => {
 
 				<p
 					className="text-sm text-gray-400 cursor-pointer"
-					onClick={hadleLoginPage}
+					onClick={toggleLoginPage}
 				>
 					I already have an account
 				</p>

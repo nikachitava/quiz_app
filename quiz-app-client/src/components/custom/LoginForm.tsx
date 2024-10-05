@@ -11,10 +11,10 @@ import { AuthContext } from "@/context/AuthContext";
 import { useNavigate } from "react-router-dom";
 
 interface ILoginFormProps {
-	hadleLoginPage: () => void;
+	toggleLoginPage: () => void;
 }
 
-const LoginForm: React.FC<ILoginFormProps> = ({ hadleLoginPage }) => {
+const LoginForm: React.FC<ILoginFormProps> = ({ toggleLoginPage }) => {
 	const [errors, setErrors] = useState("");
 	const { setCurrentUser } = useContext(AuthContext);
 	const navigate = useNavigate();
@@ -68,7 +68,7 @@ const LoginForm: React.FC<ILoginFormProps> = ({ hadleLoginPage }) => {
 
 				<p
 					className="text-sm text-gray-400 cursor-pointer"
-					onClick={hadleLoginPage}
+					onClick={toggleLoginPage}
 				>
 					I don't have an account
 				</p>
